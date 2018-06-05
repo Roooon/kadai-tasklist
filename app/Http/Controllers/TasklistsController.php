@@ -31,7 +31,7 @@ class TasklistsController extends Controller
     {
          $tasklist = new Tasklist;
 
-        return view('tasklist.create', [
+        return view('tasklists.create', [
             'tasklist' => $tasklist,
         ]);//
     }
@@ -61,7 +61,7 @@ class TasklistsController extends Controller
     {
         $tasklist = Tasklist::find($id);
 
-        return view('tasklist.show', [
+        return view('tasklists.show', [
             'tasklist' => $tasklist,
         ]);
     }
@@ -76,7 +76,7 @@ class TasklistsController extends Controller
     {
         $tasklist = Tasklist::find($id);
 
-        return view('tasklist.edit', [
+        return view('tasklists.edit', [
             'tasklist' => $tasklist,
         ]);
     }
@@ -90,7 +90,7 @@ class TasklistsController extends Controller
      */
     public function update(Request $request, $id)
     {
-       $tasklist = Tasklist::find($id);
+        $tasklist = Tasklist::find($id);
         $tasklist->content = $request->content;
         $tasklist->save();
 
