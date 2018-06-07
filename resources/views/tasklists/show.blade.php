@@ -7,22 +7,22 @@
    <table class="table table-bordered">
         <tr>
             <th>id</th>
-            <td>{{ $message->id }}</td>
+            <td>{{ $tasklist->id }}</td>
         </tr>
         <tr>
             <th>タイトル</th>
-            <td>{{ $message->title }}</td>
+            <td>{{ $tasklist->title }}</td>
         </tr>
         <tr>
-            <th>メッセージ</th>
-            <td>{{ $message->content }}</td>
+            <th>タスク</th>
+            <td>{{ $tasklist->content }}</td>
         </tr>
     </table>
     
 
-    {!! link_to_route('messages.edit', 'このメッセージを編集', ['id' => $message->id], ['class' => 'btn btn-default']) !!}
+    {!! link_to_route('tasklists.edit', 'このタスクリストを編集', ['id' => $tasklist->id], ['class' => 'btn btn-default']) !!}
 
-    {!! Form::model($message, ['route' => ['messages.destroy', $message->id], 'method' => 'delete']) !!}
+    {!! Form::model($tasklist, ['route' => ['tasklists.destroy', $tasklist->id], 'method' => 'delete']) !!}
         {!! Form::submit('削除', ['class' => 'btn btn-danger']) !!}
     {!! Form::close() !!}
     

@@ -6,14 +6,14 @@
 
     <div class="row">
         <div class="col-xs-6">
-            {!! Form::model($message, ['route' => ['messages.update', $message->id], 'method' => 'put']) !!}
+            {!! Form::model($tasklist, ['route' => ['tasklists.update', $tasklist->id], 'method' => 'put']) !!}
                 <div class="form-group">
-                    {!! Form::label('title', 'タイトル:') !!}
-                    {!! Form::text('title', null, ['class' => 'form-control']) !!}
+                    {!! Form::label('status', 'Status:') !!}
+                    {!! Form::text('status', null, ['class' => 'form-control']) !!}
                 </div>
         
                 <div class="form-group">
-                    {!! Form::label('content', 'メッセージ:') !!}
+                    {!! Form::label('content', 'タスクリスト:') !!}
                     {!! Form::text('content', null, ['class' => 'form-control']) !!}
                 </div>
         

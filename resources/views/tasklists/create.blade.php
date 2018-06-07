@@ -6,15 +6,15 @@
 
    <div class="row">
         <div class="col-xs-6">
-            {!! Form::model($message, ['route' => 'messages.store']) !!}
+            {!! Form::model($tasklist, ['route' => 'tasklists.store']) !!}
             
                 <div class="form-group">
-                    {!! Form::label('title', 'タイトル:') !!}
-                    {!! Form::text('title', null, ['class' => 'form-control']) !!}
+                    {!! Form::label('status', 'Status:') !!}
+                    {!! Form::text('status', null, ['class' => 'form-control']) !!}
                 </div>
                     
                 <div class="form-group">
-                    {!! Form::label('content', 'メッセージ:') !!}
+                    {!! Form::label('content', 'タスクリスト:') !!}
                     {!! Form::text('content', null, ['class' => 'form-control']) !!}
                 </div>
                 
