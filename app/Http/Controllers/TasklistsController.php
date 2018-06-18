@@ -16,10 +16,12 @@ class TasklistsController extends Controller
     public function index()
     {
         $tasklists = Tasklist::all();
-        
+        if (\Auth::check())
         return view('tasklists.index',[
             'tasklists' => $tasklists,
             ]);//
+        else
+        return view('welcome');
     }
 
     /**
@@ -51,6 +53,7 @@ class TasklistsController extends Controller
        
       
        $tasklist = new Tasklist;
+       $tasklist->user_id = $request->user_id;
        $tasklist->status = $request->status;
        $tasklist->content = $request->content;
        $tasklist->save();
