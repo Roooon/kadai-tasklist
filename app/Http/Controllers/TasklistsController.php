@@ -16,14 +16,23 @@ class TasklistsController extends Controller
     public function index()
     {
         $tasklists = Tasklist::all();
-        if (\Auth::check())
-        return view('tasklists.index',[
-            'tasklists' => $tasklists,
-            ]);//
-        else
+        
+        $data=[];
+        if (\Auth::check()){
+         $user = \Auth::user(); 
+         $tasklists = $user->tasklists()->orderBy('created_at', 'desc')->paginate(10);
+         
+         $data = [
+                'user' => $user,
+               'tasklists' => $tasklists,
+               ];
+            //   $tasklists += $this->counts($user);
+           return view('tasklists.index', ['tasklists' => $tasklists,]);
+         }
+        else{
         return view('welcome');
     }
-
+}
     /**
      * Show the form for creating a new resource.
      *
@@ -31,11 +40,18 @@ class TasklistsController extends Controller
      */
     public function create()
     {
+        
+        if(\Auth::check()){
          $tasklist = new Tasklist;
 
         return view('tasklists.create', [
             'tasklist' => $tasklist,
-        ]);//
+        ]);  }
+        
+        else{
+            return view('welcome');
+            
+        }
     }
 
     /**
@@ -46,20 +62,26 @@ class TasklistsController extends Controller
      */
     public function store(Request $request)
     {
-       $this->validate($request,  [
-        'status'=> 'required|max:10',
-        'content'=> 'required|max:255',
-       ]);
-       
-      
-       $tasklist = new Tasklist;
-       $tasklist->user_id = $request->user_id;
-       $tasklist->status = $request->status;
-       $tasklist->content = $request->content;
-       $tasklist->save();
-
-        return redirect('/'); //
+    //  
+    if (\Auth::check()){
+        $this->validate($request, [
+            'status'=>'required|max:10',
+            'content'=>'required|max:191',
+            ]);
+            
+        $request->user()->tasklists()->create([
+            'content'=>$request->content,
+            'status'=>$request->status,
+            ]);
+            
+            return redirect('/');
+    }else{
+        return view('welcome');
     }
+    }
+    
+    
+    
 
     /**
      * Display the specified resource.
@@ -69,11 +91,16 @@ class TasklistsController extends Controller
      */
     public function show($id)
     {
+        if(\Auth::check()){
         $tasklist = Tasklist::find($id);
 
         return view('tasklists.show', [
             'tasklist' => $tasklist,
         ]);
+        }
+        else{
+            return view('welcome');
+        }
     }
 
     /**
@@ -84,11 +111,17 @@ class TasklistsController extends Controller
      */
     public function edit($id)
     {
+        if(\Auth::check()){
         $tasklist = Tasklist::find($id);
 
         return view('tasklists.edit', [
             'tasklist' => $tasklist,
         ]);
+        }
+        else{
+            return view('welcome');
+        }
+        
     }
 
     /**
